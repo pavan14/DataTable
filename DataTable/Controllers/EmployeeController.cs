@@ -22,5 +22,16 @@ namespace DataTable.Controllers
                 return Json(new{data=empList},JsonRequestBehavior.AllowGet);
                  }
              }
+        [HttpGet]
+        public ActionResult AddOrEdit(int id=0)
+        {
+            return View(new Employee());
+
+        }
+        [HttpPost]
+        public ActionResult AddOrEdit()
+        {
+            return View();
+        }
     }
 }

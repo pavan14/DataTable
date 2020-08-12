@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataTable.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,5 +14,13 @@ namespace DataTable.Controllers
         {
             return View();
         }
+        public ActionResult GetData()
+            {
+              using(DBModel db= new DBModel())
+                {
+                List<Employee> empList=db.Employees.ToList<Employee>();
+                return Json(new{data=empList},JsonRequestBehavior.AllowGet);
+                 }
+             }
     }
 }

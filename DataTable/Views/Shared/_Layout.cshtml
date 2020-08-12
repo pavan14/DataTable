@@ -9,7 +9,7 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    
+
 
     <div class="container body-content">
         @RenderBody()
@@ -18,8 +18,10 @@
             <p>&copy; @DateTime.Now.Year - My CRUD Application Using DataTable</p>
         </footer>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

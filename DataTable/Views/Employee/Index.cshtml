@@ -4,7 +4,10 @@
 }
 
 <h2>Employee CRUD Operation</h2>
-<table id="employeeTable" class="display">
+<a class="btn btn-primary" onclick="PopupForm('@Url.Action("AddOrEdit","Employee")')" ><i class="fa fa-plus-circle" aria-hidden="true"></i> Add New</a>
+<br/>
+<br/>
+<table id="employeeTable" class="table tab-striped table-bordered" >
     <thead>
         <tr>
             <th>EmployeeID</th>
@@ -20,35 +23,64 @@
 
 </table>
 
-
-
-<link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet"/>
 <link href="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js" rel="stylesheet"/>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/superhero/bootstrap.min.css" rel="stylesheet"/>
 
 @section scripts{
     <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js" ></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     
     <script>
+        var Popup, dataTable;
+
         $(document).ready(function () {
 
-            $('#employeeTable').DataTable({
+            dataTable= $('#employeeTable').DataTable({
                 "ajax": {
                     "url": "/Employee/GetData",
                     "type": "GET",
                     "datatype":"json"
                 },
                 "columns": [
+
+                    { "data": "EmployeeID" },
                     { "data": "Name" },
                     { "data": "Position" },
                     { "data": "Office" },
                     { "data": "Age" },
+                    { "data": "Address" },
                     { "data": "Contact" },
                     { "data": "Salary" }
-                ]
+                ],
+                "language": {
+                    "emptyTable": "No Data Found, Please Fill Employee Form To Click On <b>Add New</b> Button"
+                }
             })
 
         });
+
+        function PopupForm(url) {
+            var formDiv = $('<div/>');
+            $.get(url)
+                .done(function (response) {
+                    formDiv.html(response);
+                    Popup = formDiv.dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        title: 'Fill Employee Details',
+                        height: 500,
+                        width: 700,
+                        close: function () {
+                            Popup.dialog('destroy').remove();
+                        }
+
+
+
+                    });
+                });
+
+        }
         
     </script>
     }
